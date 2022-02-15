@@ -43,9 +43,10 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
+      
       - name: Setup .NET 3.x
-      uses: actions/setup-dotnet@v1
-      with:
+        uses: actions/setup-dotnet@v1
+        with:
         # Semantic version range syntax or exact version of a dotnet version
         dotnet-version: '3.x'
         
