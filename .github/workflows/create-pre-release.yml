@@ -25,8 +25,8 @@ env:
   BUILD_VERSION:  ${{ secrets.SEMANTIC_VERSION }}
   CONFIGURATION: "Release"
   PUBLISH_FOLDER: "./publish/"
-  PUBLISH_FDD_ZIP: "EdFi.AnalyticsMiddleTier.zip"
-  PUBLISH_SCD_ZIP: "EdFi.AnalyticsMiddleTier-win10.x64.zip"
+  PUBLISH_FDD_ZIP: "EdFi.AnalyticsMiddleTier-${{ secrets.SEMANTIC_VERSION }}.zip"
+  PUBLISH_SCD_ZIP: "EdFi.AnalyticsMiddleTier-win10.x64-${{ secrets.SEMANTIC_VERSION }}.zip"
 
 jobs:
   AMT-Create-Release:
@@ -43,7 +43,12 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-   
+      - name: Setup .NET 3.x
+      uses: actions/setup-dotnet@v1
+      with:
+        # Semantic version range syntax or exact version of a dotnet version
+        dotnet-version: '3.x'
+        
       - name: Publish self-contained deployment
         run: |
           .\build.ps1 publish -SelfContained ${{ env.CONFIGURATION }} -Version ${{ env.BUILD_VERSION }} -BuildCounter ${{ github.run_number }}
