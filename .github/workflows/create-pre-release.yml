@@ -46,9 +46,7 @@ jobs:
       
       - name: Setup .NET 3.x
         uses: actions/setup-dotnet@v1
-        with:
-        # Semantic version range syntax or exact version of a dotnet version
-        dotnet-version: '3.x'
+        with: dotnet-version: '3.x'
         
       - name: Publish self-contained deployment
         run: |
