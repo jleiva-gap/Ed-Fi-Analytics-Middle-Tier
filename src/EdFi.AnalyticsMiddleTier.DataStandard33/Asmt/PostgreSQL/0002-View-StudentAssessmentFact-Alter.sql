@@ -99,9 +99,9 @@ LEFT JOIN
 	AND
         StudentAssessmentScoreResult.AssessmentReportingMethodDescriptorId = AssessmentPerformanceLevel.AssessmentReportingMethodDescriptorId
     AND
-        lpad (AssessmentPerformanceLevel.MaximumScore,35,'0') >= lpad (StudentAssessmentScoreResult.Result,35,'0')
+        lpad (AssessmentPerformanceLevel.MaximumScore,35,' ') >= lpad (StudentAssessmentScoreResult.Result,35,' ')
 	AND
-        lpad (AssessmentPerformanceLevel.MinimumScore,35,'0') <= lpad (StudentAssessmentScoreResult.Result,35,'0')
+        lpad (AssessmentPerformanceLevel.MinimumScore,35,' ') <= lpad (StudentAssessmentScoreResult.Result,35,' ')
 LEFT JOIN
     edfi.ResultDatatypeTypeDescriptor ON
         StudentAssessmentScoreResult.ResultDatatypeTypeDescriptorId = ResultDatatypeTypeDescriptor.ResultDatatypeTypeDescriptorId
