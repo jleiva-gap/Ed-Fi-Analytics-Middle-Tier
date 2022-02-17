@@ -43,17 +43,7 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-      
-      - name: Setup .NET 3.x
-        uses: actions/setup-dotnet@v1
-        with: 
-          dotnet-version: '3.1.x'
-
-      - name: Test version
-        run: |
-          dotnet --info
-        shell: pwsh
-        
+   
       - name: Publish self-contained deployment
         run: |
           .\build.ps1 publish -SelfContained ${{ env.CONFIGURATION }} -Version ${{ env.BUILD_VERSION }} -BuildCounter ${{ github.run_number }}
