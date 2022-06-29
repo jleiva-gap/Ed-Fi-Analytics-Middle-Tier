@@ -57,10 +57,7 @@ jobs:
           .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -Version ${{ env.BUILD_VERSION }} -BuildCounter ${{ github.run_number }}
         shell: pwsh
 
-      - name: Unit Tests
-        run: |
-          .\build.ps1 unittest -Configuration ${{ env.CONFIGURATION }}
-        shell: pwsh
+      
 
   AMT-Integration-Tests:
     needs: AMT-Build-Unit-Tests
@@ -87,6 +84,11 @@ jobs:
           -  5432:5432
 
     steps:
+      - name: Unit Tests
+        run: |
+          .\build.ps1 unittest -Configuration ${{ env.CONFIGURATION }}
+        shell: pwsh
+        
       - name: Start Ubuntu container for SQLServer 2017 Express
         run: |
          docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=${{ env.SQLSERVER_ADMIN_PASS }}" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest       
