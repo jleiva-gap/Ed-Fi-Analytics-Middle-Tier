@@ -38,6 +38,8 @@ env:
 
 jobs:
   AMT-Build-Unit-Tests:
+    runs-on: Ubuntu-latest
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579
@@ -61,9 +63,10 @@ jobs:
         shell: pwsh
 
   AMT-Integration-Tests:
+    needs: AMT-Unit-Tests
+    
     runs-on: Ubuntu-latest
     
-    needs: AMT-Unit-Tests
     # Service containers to run with `AMT-runner-job`
     services:
       # Label used to access the service container
