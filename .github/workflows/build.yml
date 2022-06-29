@@ -115,6 +115,11 @@ jobs:
         shell: pwsh
         env:
           PGPASSWORD: ${{ env.POSTGRES_PASS }}
+          
+      - name: Building AMT
+        run: |
+          .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -Version ${{ env.BUILD_VERSION }} -BuildCounter ${{ github.run_number }}
+        shell: pwsh
      
       - name: Integration Tests
         run: |
