@@ -63,7 +63,7 @@ jobs:
         shell: pwsh
 
   AMT-Integration-Tests:
-    needs: AMT-Unit-Tests
+    needs: AMT-Build-Unit-Tests
     
     runs-on: Ubuntu-latest
     
