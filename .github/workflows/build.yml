@@ -80,7 +80,7 @@ jobs:
           .\build.ps1 unittest -Configuration ${{ env.CONFIGURATION }}
         shell: pwsh
 
-AMT-Integration-Tests:
+  AMT-Integration-Tests:
     needs: AMT-Unit-Tests
     
     runs-on: Ubuntu-latest
