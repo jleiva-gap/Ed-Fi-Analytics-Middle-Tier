@@ -62,7 +62,7 @@ jobs:
 
   AMT-Integration-Tests:
     needs: AMT-Build-Unit-Tests
-    if: (github.event_name == 'pull_request' && github.event.action == 'synchronize') ||  github.ref == 'refs/heads/main'
+    if: (github.event_name == 'pull_request' || github.event.action == 'synchronize') ||  github.ref == 'refs/heads/main'
     runs-on: Ubuntu-latest
     
     # Service containers to run with `AMT-runner-job`
