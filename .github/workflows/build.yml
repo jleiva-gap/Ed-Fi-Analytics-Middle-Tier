@@ -7,8 +7,6 @@ name: .NET Build
 
 on:
   push: 
-    branches:
-      - main
   pull_request:
   workflow_dispatch:
 
@@ -63,8 +61,8 @@ jobs:
         shell: pwsh
 
   AMT-Integration-Tests:
-    #needs: AMT-Build-Unit-Tests
-    if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
+    needs: AMT-Build-Unit-Tests
+    if: (github.event_name == 'pull_request' && github.event.action == 'synchronize') ||  github.ref == 'refs/heads/master'
     runs-on: Ubuntu-latest
     
     # Service containers to run with `AMT-runner-job`
