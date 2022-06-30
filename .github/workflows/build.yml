@@ -63,7 +63,7 @@ jobs:
         shell: pwsh
 
   AMT-Integration-Tests:
-    needs: AMT-Build-Unit-Tests
+    #needs: AMT-Build-Unit-Tests
     if: github.event_name == 'pull_request' && github.event.action == 'synchronize'
     runs-on: Ubuntu-latest
     
