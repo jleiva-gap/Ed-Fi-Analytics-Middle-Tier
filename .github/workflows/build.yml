@@ -7,6 +7,8 @@ name: .NET Build
 
 on:
   push: 
+    branches:
+      - main
   pull_request:
   workflow_dispatch:
 
@@ -62,15 +64,13 @@ jobs:
 
   AMT-Integration-Tests:
     needs: AMT-Build-Unit-Tests
-    if: (github.event_name == 'pull_request' || github.event.action == 'synchronize') ||  github.ref == 'refs/heads/main'
     runs-on: Ubuntu-latest
-    # Test fork
     # Service containers to run with `AMT-runner-job`
     services:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres:11
+        image: postgres:13
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASS }}
@@ -96,9 +96,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nuget-
         
-      - name: Start Ubuntu container for SQLServer 2017 Express
+      - name: Start Ubuntu container for SQLServer 2019 Express
         run: |
-         docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=${{ env.SQLSERVER_ADMIN_PASS }}" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2017-latest       
+         docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=${{ env.SQLSERVER_ADMIN_PASS }}" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
 
       - name: Create Postgres DB DS v3.2
         run: |
