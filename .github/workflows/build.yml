@@ -13,7 +13,6 @@ on:
   workflow_dispatch:
 
 env:
-  # BUILD_VERSION: ${{ secrets.SEMANTIC_VERSION }}
   CONFIGURATION: "Release"
   GA_USE_GITHUB_ENV: "true"
   USE_MSSQL_DEFAULT_CONN_STRING: "FALSE"
@@ -26,13 +25,13 @@ env:
   SQLSERVER_DATABASE_DS32: "AnalyticsMiddleTier_Testing_Ds32"
   SQLSERVER_DATABASE_DS33: "AnalyticsMiddleTier_Testing_Ds33"
   SQLSERVER_INTEGRATED_SECURITY: "false"
-  SQLSERVER_USER: ${{ secrets.MSSQL_USER }}
+  SQLSERVER_USER: "sa"
   SQLSERVER_PASS: ${{ secrets.MSSQL_PWD }}
   POSTGRES_HOST: "localhost"
   POSTGRES_DATABASE_DS32: "edfi_ods_tests_ds32"
   POSTGRES_DATABASE_DS33: "edfi_ods_tests_ds33"
   POSTGRES_PORT: "5432"
-  POSTGRES_USER: ${{ secrets.POSTGRESQL_USER }}
+  #POSTGRES_USER: ${{ secrets.POSTGRESQL_USER }}
   POSTGRES_PASS: ${{ secrets.POSTGRESQL_PWD }}
   POSTGRES_POOLING: "false"
 
@@ -110,7 +109,7 @@ jobs:
 
       - name: Create Postgres DB DS v3.2
         run: |
-          .\eng\CreateTestDbAndSchema.ps1 -port ${{ env.POSTGRES_PORT }} -d ${{ env.POSTGRES_DATABASE_DS32 }} -ds 3.2
+          .\eng\CreateTestDbAndSchema.ps1 -port ${{ env.POSTGRES_PORT }} -d ${{ env.POSTGRES_DATABASE_DS32 }} -u ${{}} -w ${{}} -ds 3.2
         shell: pwsh
         env:
           PGPASSWORD:  ${{ env.POSTGRES_PASS }}
